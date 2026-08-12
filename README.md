@@ -1,76 +1,142 @@
-# YOLO-Based Real-Time Vehicle Counting and Annotation using Supervision
+# Real-Time YOLO Traffic Counter & Analytics Dashboard
 
-This repository contains a suite of Python scripts dedicated to real-time vehicle detection, tracking, and counting, leveraging the YOLO (You Only Look Once) object detection model, specifically YOLOv8. Designed to facilitate vehicle counting across multi-lane highways, this project integrates advanced tools like Supervision for seamless annotation, object tracking, and detection smoothing, creating a robust vehicle monitoring system.
+An AI-powered real-time vehicle detection, tracking, and bi-directional counting system built with **YOLOv8**, **Roboflow Supervision**, **FastAPI**, and an interactive **Web Dashboard**.
 
-### Key Components:
-- **YOLOv8 Model**: Used for high-accuracy, real-time vehicle detection. YOLOv8 is particularly effective in distinguishing various vehicle types, including cars, trucks, buses, and motorbikes, which makes it highly suitable for traffic monitoring.
-- **Supervision Library**: This library is instrumental in annotating frames, visualizing bounding boxes, tracking objects, and implementing various other utilities such as line drawing and overlay creation. It also supports **ByteTrack** for high-precision object tracking and **DetectionsSmoother** for enhanced tracking stability.
-- **Flexible Configurations**: Each script is tailored for specific test cases, offering different boundary conditions, lane partitioning, and counting methods. This modular approach allows users to adapt the scripts to various traffic environments or project needs.
-  
-### Workflow Overview:
-1. **Object Detection**: The YOLOv8 model is used to detect vehicles in video frames, outputting bounding boxes and classifying detected objects.
-2. **Object Tracking with ByteTrack**: Supervision’s ByteTrack algorithm tracks vehicles across frames, ensuring that each vehicle is counted only once as it crosses predefined boundaries.
-3. **Annotation and Visualization**: The Supervision library annotates frames with bounding boxes, labels, and trace lines, making it easy to visualize the counting process and object movement.
-4. **Count and Record**: Vehicles are counted based on crossing specific boundaries, and separate counters can be maintained for different lanes or vehicle types.
-
-Below is an overview of each script contained in this repository, detailing their unique functionalities and configurations for diverse traffic monitoring scenarios:
-
-## Table of Contents
-- [Installation](#installation)
-- [Usage](#usage)
-- [Script Descriptions](#script-descriptions)
-  - [car_counter_2](#car_counter_2)
-  - [car_counter_3](#car_counter_3)
-  - [car_counter_4](#car_counter_4)
-  - [car_counter_5](#car_counter_5)
-
-
-## Installation
-
-1. Clone the repository:
-    ```bash
-    git clone https://github.com/Pushtogithub23/Real-Time-YOLO-Car-Counter.git
-    ```
-2. Install the required dependencies:
-    ```bash
-    pip install -r requirements.txt
-    ```
-
-## Usage
-
-To use any of the car counter scripts, ensure that the YOLOv8 weights are downloaded and correctly linked in the scripts. Run the desired script using:
-```bash
-python <script_name.py>
-```
-
-## Script Descriptions
-
-### car_counter_2
-This script uses the YOLOv8 model to detect vehicles in a video and count how many cross a predefined boundary line. Key features include:
-- Integration of the YOLOv8 model for object detection.
-- Counting vehicles crossing a line placed at a fixed height within the video frame.
-- Displays vehicle counts in real-time as the video is processed.
-
-![car_counter_2](https://github.com/user-attachments/assets/08c04d28-efb5-4352-a76c-bda0eeb81cd2)
-
-### car_counter_3
-Similar to `car_counter_2`, this version includes additional vehicle detection and counting logic improvements. It also introduces optimized annotation tools, like Elliptical annotations and labels for vehicle tracking.
-
-![car_counter_3](https://github.com/user-attachments/assets/b69bae96-00f7-41f9-9dda-f29ce589024e)
-
-### car_counter_4
-This script builds upon the previous ones by adding a multi-lane vehicle counting system. It counts vehicles in two directions (up and down) separately:
-- Different counting lines are defined for upward and downward traffic flows.
-- Real-time display of counts for total vehicles and those going up and down.
-
-![car_counter_4](https://github.com/user-attachments/assets/df474661-8748-44ef-a7be-c1b7f1010640)
-
-### car_counter_5
-This version is an advanced iteration with further optimizations for smoother detections. It introduces:
-- Smoothing of detection results to avoid abrupt changes in vehicle positions.
-- Counting vehicles in both directions of traffic flow
-- Customized visual enhancements like semi-transparent overlays and trace annotations to clearly show vehicle movement paths.
-
-![car_counter_yolo11x](https://github.com/user-attachments/assets/60119c3f-04b4-46d7-a43a-598cb964d7e9)
+This application streams live video, tracks multi-lane vehicle movement (Upward/Downward), counts vehicles dynamically by category, supports live USB webcams & IP CCTV cameras (RTSP), and dispatches live events to external services via Webhooks.
 
 ---
+
+## 🌟 Key Features
+
+### 📹 1. Flexible Video & Live Camera Inputs
+- **USB / Integrated Webcams**: Stream directly from local camera indices (`0`, `1`, etc.).
+- **IP / CCTV Cameras**: Connect directly to network RTSP streams (`rtsp://user:pass@ip:port/stream`) with automatic **FFMPEG + TCP transport** for zero connection timeouts.
+- **Video File Uploads**: Upload pre-recorded traffic video files (`.mp4`, `.avi`, `.mov`) directly through the Web Dashboard.
+
+### 📊 2. Real-Time Web Analytics Dashboard
+- **Live Video Stream**: Low-latency MJPEG video feed overlaid with real-time detection bounding boxes, tracking lines, and count metrics.
+- **Live Statistics Cards**: Real-time counter metrics tracking **Total Vehicles**, **Upward / Inbound Flow**, and **Downward / Outbound Flow**.
+- **Dynamic Vehicle Filtering**: Selectively track and count specific vehicle classes in real-time:
+  - 🚗 Cars
+  - 🚚 Trucks
+  - 🚌 Buses
+  - 🏍️ Motorbikes
+
+### 🔗 3. Webhook Event Dispatching
+- Automatically send payload notifications whenever vehicles cross counting boundaries.
+- Secure header authentication via custom `X-API-Key` token (`X-API-Key: my_secure_camera_token_123`).
+
+### 🎯 4. High-Precision Tracking & Smoothing
+- Powered by **YOLOv8** for high-accuracy object detection.
+- Employs **ByteTrack** for persistent object identification across frames.
+- Integrates **DetectionsSmoother** to eliminate tracking flicker and prevent duplicate counts.
+
+---
+
+## 📁 Repository Structure
+
+```
+.
+├── app/
+│   ├── main.py                     # FastAPI application & API endpoints
+│   ├── services/
+│   │   └── counter_service.py      # Core video processing, YOLO & ByteTrack engine
+│   └── static/                     # Web Dashboard UI (HTML, CSS, JS)
+├── DATA/
+│   ├── INPUTS/                     # Uploaded video input folder
+│   └── OUTPUTS/                    # Output logs & renders
+├── yolo_car_counter_2.py           # Standalone OpenCV single-line counter
+├── yolo_car_counter_3.py           # Standalone OpenCV elliptical tracker
+├── yolo_car_counter_4.py           # Standalone multi-lane dual-direction counter
+├── yolo_car_counter_5.py           # Standalone smooth overlay tracker
+├── webhook_receiver.py             # Test tool to verify live webhook payloads
+├── setup_and_run.bat               # One-click Windows setup & launcher script
+├── requirements.txt                # Python dependencies
+├── LICENSE                         # Repository license
+└── README.md                       # Documentation
+```
+
+---
+
+## 🚀 Quick Start Guide
+
+### 1. Prerequisites
+- Python 3.8 or higher installed on your system.
+- Webcam or RTSP Camera / Sample video file.
+
+### 2. Installation
+
+Clone the repository:
+```bash
+git clone https://github.com/Ladyunicorn560/Realtime-yolo-traffic-counter.git
+cd Realtime-yolo-traffic-counter
+```
+
+Install dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+### 3. Running the Web Application
+
+#### Option A: One-Click Windows Script
+Simply double-click `setup_and_run.bat` or run:
+```cmd
+setup_and_run.bat
+```
+
+#### Option B: Direct Python Launch
+```bash
+python -m app.main
+```
+
+Once running, open your web browser and navigate to:
+👉 **`http://localhost:8000`**
+
+---
+
+## 📹 How to Connect Live Cameras
+
+1. Open the Web Dashboard at `http://localhost:8000`.
+2. In the **Camera Source** panel:
+   - For **Local Webcam**: Enter `0` (or `1` for external USB webcam).
+   - For **IP CCTV Camera**: Enter your camera's RTSP URL:
+     ```text
+     rtsp://admin:password@192.168.1.100:554/h264Preview_01_main
+     ```
+   - For **Video Upload**: Click **Upload Video File** and select your video.
+3. Click **Start Stream**.
+
+---
+
+## 📡 Webhook Integration & Testing
+
+To test live webhook payloads:
+
+1. Launch the local webhook receiver in a separate terminal:
+   ```bash
+   python webhook_receiver.py
+   ```
+2. In the Web Dashboard, set the **Webhook URL** to:
+   ```text
+   http://127.0.0.1:9000/webhook
+   ```
+3. Whenever a vehicle crosses a line, structured JSON event payloads with class details, direction, count, and timestamp will be printed in the receiver terminal.
+
+---
+
+## 🌐 API Reference
+
+| Endpoint | Method | Description |
+|---|---|---|
+| `/` | `GET` | Serves the interactive Web Analytics Dashboard |
+| `/video_feed` | `GET` | Live MJPEG video stream with YOLO annotations |
+| `/stats` | `GET` | Returns current total, up, and down count stats (JSON) |
+| `/start` | `POST` / `GET` | Starts camera or video stream (`{"source": "0"}`) |
+| `/stop` | `POST` | Stops the running video stream |
+| `/upload_video` | `POST` | Uploads a local video file and launches detection |
+
+---
+
+## 📜 License
+This project is open-source and available under the [MIT License](LICENSE).
