@@ -13,7 +13,7 @@ def _did_cross(prev_y: int, curr_y: int, line_y: int) -> bool:
 
 
 # Initialize YOLO model and video info
-model = YOLO("../yolo weights/yolov8n.pt")  # Replace with your model path
+model = YOLO("yolov8n.pt")  # Downloads automatically if missing
 video_path = "DATA/INPUTS/cars_on_highway_3.mp4"
 video_info = sv.VideoInfo.from_video_path(video_path)
 w, h, fps = video_info.width, video_info.height, video_info.fps
