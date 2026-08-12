@@ -2,7 +2,15 @@
 
 An AI-powered real-time vehicle detection, tracking, and bi-directional counting system built with **YOLOv8**, **Roboflow Supervision**, **FastAPI**, and an interactive **Web Dashboard**.
 
-This application streams live video, tracks multi-lane vehicle movement (Upward/Downward), counts vehicles dynamically by category, supports live USB webcams & IP CCTV cameras (RTSP), and dispatches live events to external services via Webhooks.
+This repository contains a suite of Python scripts and a modern Web Application dedicated to real-time vehicle detection, tracking, and counting, leveraging the **YOLO (You Only Look Once)** object detection model, specifically **YOLOv8**. Designed to facilitate vehicle counting across multi-lane highways and urban roads, this project integrates advanced computer vision tools like Roboflow Supervision for seamless annotation, object tracking, and detection smoothing, alongside live USB/IP camera integration and real-time Webhook notifications.
+
+---
+
+## 🧩 Core AI & Computer Vision Components
+
+- **YOLOv8 Model**: Used for high-accuracy, real-time vehicle detection. YOLOv8 is particularly effective in distinguishing various vehicle types, including **cars, trucks, buses, and motorbikes**, which makes it highly suitable for traffic monitoring.
+- **Roboflow Supervision Library**: Instrumental in annotating frames, visualizing bounding boxes, tracking objects, and implementing utilities such as line drawing and overlay creation. It supports **ByteTrack** for high-precision object tracking and **DetectionsSmoother** for enhanced tracking stability across video frames.
+- **Flexible Configurations**: Tailored configurations offering different boundary conditions, multi-lane partitioning, live camera integration (USB & RTSP IP cameras), and custom Webhook alerts.
 
 ---
 
@@ -25,11 +33,6 @@ This application streams live video, tracks multi-lane vehicle movement (Upward/
 ### 🔗 3. Webhook Event Dispatching
 - Automatically send payload notifications whenever vehicles cross counting boundaries.
 - Secure header authentication via custom `X-API-Key` token (`X-API-Key: my_secure_camera_token_123`).
-
-### 🎯 4. High-Precision Tracking & Smoothing
-- Powered by **YOLOv8** for high-accuracy object detection.
-- Employs **ByteTrack** for persistent object identification across frames.
-- Integrates **DetectionsSmoother** to eliminate tracking flicker and prevent duplicate counts.
 
 ---
 
