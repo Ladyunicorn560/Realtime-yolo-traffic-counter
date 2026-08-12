@@ -1,0 +1,9 @@
+numpy
+opencv-python
+ultralytics
+supervision
+torch
+fastapi
+uvicorn
+python-multipart
+aiofiles

@@ -1,0 +1,38 @@
+# Python Bytecode & Cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environments
+.venv/
+venv/
+env/
+ENV/
+
+# YOLO Model Weights (Heavy Binary Files)
+*.pt
+*.onnx
+*.engine
+yolo weights/
+
+# Media & Data Files (Inputs & Outputs)
+DATA/INPUTS/*
+DATA/OUTPUTS/*
+!DATA/INPUTS/.gitkeep
+!DATA/OUTPUTS/.gitkeep
+*.mp4
+*.avi
+*.mov
+*.jpg
+*.jpeg
+*.png
+
+# IDE & OS specific files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Logs & Local Config
+*.log
+.env

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Counter</title>
+    <link rel="stylesheet" href="/static/css/styles.css?v=3">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Vehicle Counter</h1>
+            <div id="status" class="status">System Ready</div>
+        </header>
+
+        <div class="main-grid">
+            <div class="video-container">
+                <div class="video-box" id="video-box">
+                    <img id="video-feed" alt="" style="width:100%; height:100%; object-fit:cover; border-radius:8px; display:none;">
+                    <div id="loading" class="loading-overlay">Connecting to camera...</div>
+                </div>
+
+                <div class="controls">
+                    <div class="input-group">
+                        <input type="text" id="cam-source"
+                            value="rtsp://admin:Kiran%4011@192.168.1.64:554/Streaming/Channels/101?transportmode=unicast&profile=Profile_1"
+                            placeholder="Camera Link (e.g. 0 or rtsp://...)" class="input-field">
+                        <button id="start-cam" class="btn">Connect</button>
+                    </div>
+                    <button id="stop-cam" class="btn btn-secondary">Stop</button>
+                    <div class="upload-wrapper">
+                        <input type="file" id="video-upload" hidden accept="video/*">
+                        <button onclick="document.getElementById('video-upload').click()"
+                            class="btn btn-secondary">Upload Video</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stats-panel">
+                <div class="stat-main">
+                    <div class="stat-item primary">
+                        <small>Total Vehicles</small>
+                        <div class="value" id="total-count">0</div>
+                    </div>
+                    <div class="stat-row">
+                        <div class="stat-item">
+                            <small>Upstream (Incoming)</small>
+                            <div class="value" id="up-count">0</div>
+                        </div>
+                        <div class="stat-item">
+                            <small>Downstream (Outgoing)</small>
+                            <div class="value" id="down-count">0</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="category-stats">
+                    <h3>Vehicle Breakdown</h3>
+                    <div class="cat-grid">
+                        <div class="cat-item">
+                            <span>Cars</span>
+                            <strong id="car-count">0</strong>
+                        </div>
+                        <div class="cat-item">
+                            <span>Motorbikes</span>
+                            <strong id="motorbike-count">0</strong>
+                        </div>
+                        <div class="cat-item">
+                            <span>Buses</span>
+                            <strong id="bus-count">0</strong>
+                        </div>
+                        <div class="cat-item">
+                            <span>Trucks</span>
+                            <strong id="truck-count">0</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Webhook -->
+                <div class="webhook-panel">
+                    <div class="input-group">
+                        <input type="text" id="webhook-url"
+                            placeholder="Webhook URL (https://your-api.com/webhook)"
+                            class="input-field">
+                        <button id="webhook-save" class="btn">Save</button>
+                        <button id="webhook-test" class="btn btn-test">Test</button>
+                    </div>
+                    <div id="webhook-status" class="webhook-status"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/static/js/app.js?v=7"></script>
+</body>
+
+</html>
