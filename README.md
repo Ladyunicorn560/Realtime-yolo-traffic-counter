@@ -2,6 +2,9 @@
 
 An AI-powered real-time vehicle detection, tracking, and bi-directional counting system built with **YOLOv8**, **Roboflow Supervision**, **FastAPI**, and an interactive **Web Dashboard**.
 
+🚀 **Live Application**: [https://realtime-yolo-traffic-counter.onrender.com](https://realtime-yolo-traffic-counter.onrender.com)
+
+
 This repository contains a suite of Python scripts and a modern Web Application dedicated to real-time vehicle detection, tracking, and counting, leveraging the **YOLO (You Only Look Once)** object detection model, specifically **YOLOv8**. Designed to facilitate vehicle counting across multi-lane highways and urban roads, this project integrates advanced computer vision tools like Roboflow Supervision for seamless annotation, object tracking, and detection smoothing, alongside live USB/IP camera integration and real-time Webhook notifications.
 
 ---
@@ -145,7 +148,9 @@ To test live webhook payloads:
 
 ## ☁️ Deploying to Render
 
-You can easily host this Web Application publicly on **Render**.
+This application is deployed live on Render at:
+👉 **[https://realtime-yolo-traffic-counter.onrender.com](https://realtime-yolo-traffic-counter.onrender.com)**
+
 
 ### Option A: Using Render Blueprints (Recommended)
 1. Push this repository to your GitHub account.
