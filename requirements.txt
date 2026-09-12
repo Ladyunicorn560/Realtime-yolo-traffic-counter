@@ -1,9 +1,11 @@
 numpy
-opencv-python
+opencv-python-headless
 ultralytics
 supervision
 torch
 fastapi
 uvicorn
+gunicorn
 python-multipart
 aiofiles
+

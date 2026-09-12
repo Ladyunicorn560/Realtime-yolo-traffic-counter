@@ -19,7 +19,10 @@ def _did_cross(prev_y: int, curr_y: int, line_y: int) -> bool:
 
 
 class CounterService:
-    def __init__(self, model_path="yolov8m.pt"):
+    def __init__(self, model_path=None):
+        if model_path is None:
+            model_path = os.environ.get("YOLO_MODEL", "yolov8n.pt")
+        print(f"[CounterService] Loading YOLO model: {model_path}")
         self.model = YOLO(model_path)
 
         try:

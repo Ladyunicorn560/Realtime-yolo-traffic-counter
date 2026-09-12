@@ -205,8 +205,11 @@ async def test_webhook():
 
 if __name__ == "__main__":
     import uvicorn
+    host = os.environ.get("HOST", "0.0.0.0")
+    port = int(os.environ.get("PORT", 8000))
     print("\n" + "="*50)
-    print("🚀 YOLOv8 Car Counter Pro is starting!")
-    print("👉 Dashboard available at: http://127.0.0.1:8000")
+    print("🚀 Real-Time YOLO Traffic Counter is starting!")
+    print(f"👉 Serving on http://{host}:{port}")
     print("="*50 + "\n")
-    uvicorn.run(app, host="127.0.0.1", port=8000)
+    uvicorn.run("app.main:app", host=host, port=port, reload=False)
+

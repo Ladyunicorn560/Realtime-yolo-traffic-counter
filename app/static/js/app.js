@@ -67,10 +67,10 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (e) {}
     };
 
-    const DEFAULT_SOURCE = "rtsp://admin:Kiran%4011@192.168.1.64:554/Streaming/Channels/101?transportmode=unicast&profile=Profile_1";
+    const DEFAULT_SOURCE = "0";
 
     const startCamera = async (source) => {
-        source = source || document.getElementById('cam-source').value || DEFAULT_SOURCE;
+        source = source !== undefined ? source : (document.getElementById('cam-source').value || DEFAULT_SOURCE);
         status.innerText = 'Connecting...';
         try {
             const res = await fetch('/start', {
@@ -171,7 +171,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => { webhookStatus.textContent = ''; }, 4000);
     };
 
-    // Auto-connect on page load
-    startCamera(DEFAULT_SOURCE);
+    // Do not auto-connect to remote RTSP camera by default; wait for user input or click
+    setRunning(false);
 });
 

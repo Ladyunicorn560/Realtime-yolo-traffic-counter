@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: realtime-yolo-traffic-counter
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: YOLO_MODEL
+        value: yolov8n.pt
+      - key: PYTHON_VERSION
+        value: 3.10.12

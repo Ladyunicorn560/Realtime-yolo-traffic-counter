@@ -53,8 +53,10 @@ This repository contains a suite of Python scripts and a modern Web Application 
 ├── yolo_car_counter_4.py           # Standalone multi-lane dual-direction counter
 ├── yolo_car_counter_5.py           # Standalone smooth overlay tracker
 ├── webhook_receiver.py             # Test tool to verify live webhook payloads
+├── Procfile                         # Render start command specification
+├── render.yaml                     # Render Blueprint deployment configuration
 ├── setup_and_run.bat               # One-click Windows setup & launcher script
-├── requirements.txt                # Python dependencies
+├── requirements.txt                # Python dependencies (headless OpenCV for cloud)
 ├── LICENSE                         # Repository license
 └── README.md                       # Documentation
 ```
@@ -141,5 +143,30 @@ To test live webhook payloads:
 
 ---
 
+## ☁️ Deploying to Render
+
+You can easily host this Web Application publicly on **Render**.
+
+### Option A: Using Render Blueprints (Recommended)
+1. Push this repository to your GitHub account.
+2. Log in to [Render Dashboard](https://dashboard.render.com).
+3. Click **New +** → **Blueprint**.
+4. Connect your GitHub repository (`Realtime-yolo-traffic-counter`).
+5. Render will automatically detect `render.yaml` and configure the **Web Service**.
+6. Click **Apply**.
+
+### Option B: Manual Web Service Setup
+1. Log in to [Render Dashboard](https://dashboard.render.com).
+2. Click **New +** → **Web Service**.
+3. Connect your repository: `https://github.com/Ladyunicorn560/Realtime-yolo-traffic-counter.git`.
+4. Configure settings:
+   - **Environment**: `Python 3`
+   - **Build Command**: `pip install -r requirements.txt`
+   - **Start Command**: `uvicorn app.main:app --host 0.0.0.0 --port $PORT`
+5. Click **Create Web Service**.
+
+---
+
 ## 📜 License
 This project is open-source and available under the [MIT License](LICENSE).
+
